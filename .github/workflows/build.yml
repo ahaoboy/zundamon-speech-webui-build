@@ -1,0 +1,111 @@
+name: build
+
+permissions:
+  contents: write
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  build-windows-cpu:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v2
+        with:
+          msbuild-architecture: x64
+
+      - name: winget
+        run: |
+          Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+          iex "& {$(irm get.scoop.sh)} -RunAsAdmin"
+          scoop install main/winget -g
+          winget install Microsoft.VisualStudio.2022.BuildTools --force --accept-package-agreements --accept-source-agreements
+          winget install Microsoft.VisualStudio.2022.Community --override "--quiet --add Microsoft.VisualStudio.Workload.NativeDesktop" --force --accept-package-agreements --accept-source-agreements
+
+      - uses: easy-install/easy-setup@v1
+        with:
+          url: https://github.com/Kitware/CMake/releases/download/v4.0.0/cmake-4.0.0-windows-x86_64.zip
+
+      - name: Download Python 3.9.13
+        run: |
+          Invoke-WebRequest -Uri "https://www.python.org/ftp/python/3.9.13/python-3.9.13-amd64.exe" -OutFile "python_installer.exe"
+          Start-Process -FilePath ".\python_installer.exe" -ArgumentList "/quiet InstallAllUsers=0 TargetDir=$PWD\python" -NoNewWindow -Wait
+          echo "$PWD\python" | Out-File -Append -Encoding utf8 $env:GITHUB_PATH
+          echo "$PWD\python\Scripts" | Out-File -Append -Encoding utf8 $env:GITHUB_PATH
+
+      - name: build pyopenjtalk
+        run: |
+          pip install git+https://github.com/r9y9/pyopenjtalk.git@fix-cmake4
+          ./bat-en/zundamonspeech_builder_cpu_v1.0.bat
+
+      - name: zip
+        run: |
+          mkdir dist
+          7z a -tzip ./dist/zundamonspeech_builder_cpu.zip python zundamon-speech-webui launch_zundamon.bat -v1500m
+          ls dist
+
+      - name: release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: ./dist/*
+          allowUpdates: true
+
+  build-windows-gpu:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v2
+        with:
+          msbuild-architecture: x64
+
+      - name: winget
+        run: |
+          Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+          iex "& {$(irm get.scoop.sh)} -RunAsAdmin"
+          scoop install main/winget -g
+          winget install Microsoft.VisualStudio.2022.BuildTools --force --accept-package-agreements --accept-source-agreements
+          winget install Microsoft.VisualStudio.2022.Community --override "--quiet --add Microsoft.VisualStudio.Workload.NativeDesktop" --force --accept-package-agreements --accept-source-agreements
+
+      - uses: easy-install/easy-setup@v1
+        with:
+          url: https://github.com/Kitware/CMake/releases/download/v4.0.0/cmake-4.0.0-windows-x86_64.zip
+
+      - name: Download Python 3.9.13
+        run: |
+          Invoke-WebRequest -Uri "https://www.python.org/ftp/python/3.9.13/python-3.9.13-amd64.exe" -OutFile "python_installer.exe"
+          Start-Process -FilePath ".\python_installer.exe" -ArgumentList "/quiet InstallAllUsers=0 TargetDir=$PWD\python" -NoNewWindow -Wait
+          echo "$PWD\python" | Out-File -Append -Encoding utf8 $env:GITHUB_PATH
+          echo "$PWD\python\Scripts" | Out-File -Append -Encoding utf8 $env:GITHUB_PATH
+
+      - name: Install CUDA
+        uses: Jimver/cuda-toolkit@master
+        with:
+          cuda: '12.1.0'
+
+      - name: build
+        run: |
+          pip install git+https://github.com/r9y9/pyopenjtalk.git@fix-cmake4
+          ./bat-en/zundamonspeech_builder_gpu_v1.0.bat
+
+      - name: zip
+        run: |
+          mkdir dist
+          7z a -tzip ./dist/zundamonspeech_builder_gpu.zip python zundamon-speech-webui launch_zundamon.bat -v2000m
+          ls dist
+
+      - name: release
+        uses: ncipollo/release-action@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          artifacts: ./dist/*
+          allowUpdates: true
