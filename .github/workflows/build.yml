@@ -48,7 +48,7 @@ jobs:
       - name: zip
         run: |
           mkdir dist
-          7z a -tzip ./dist/zundamonspeech_builder_cpu.zip python zundamon-speech-webui launch_zundamon.bat -v1500m
+          7z a -tzip ./dist/zundamonspeech_builder_cpu.zip python zundamon-speech-webui launch_zundamon.bat -v2000m
           ls dist
 
       - name: release
