@@ -61,6 +61,8 @@ jobs:
           echo "no-cache-dir = true" >> ~/pip/pip.ini
           echo "target = ${PWD}/python_cpu/Lib/site-packages/" >> ~/pip/pip.ini
 
+          cat ~/pip/pip.ini
+
 
       - name: build pyopenjtalk
         run: |
@@ -134,6 +136,7 @@ jobs:
           echo "no-cache-dir = true" >> ~/pip/pip.ini
           echo "target = ${PWD}/python_gpu/Lib/site-packages/" >> ~/pip/pip.ini
 
+          cat ~/pip/pip.ini
 
       - name: Install CUDA
         uses: Jimver/cuda-toolkit@master
