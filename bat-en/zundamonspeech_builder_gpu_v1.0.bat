@@ -11,27 +11,27 @@ cd ..
 @REM echo Press any key when you are ready to continue
 @REM pause > NUL
 
-REM Create virtual environment
-echo Creating virtual environment...
-if exist zundamon_env (
-    echo Virtual environment already exists.
-) else (
-    python -m venv zundamon_env
-    if %errorlevel% neq 0 (
-        echo Failed to create virtual environment. Please check if Python 3.9.13 is installed.
-        pause
-        exit /b 1
-    )
-    echo Virtual environment created.
-)
+@REM REM Create virtual environment
+@REM echo Creating virtual environment...
+@REM if exist zundamon_env (
+@REM     echo Virtual environment already exists.
+@REM ) else (
+@REM     python -m venv zundamon_env
+@REM     if %errorlevel% neq 0 (
+@REM         echo Failed to create virtual environment. Please check if Python 3.9.13 is installed.
+@REM         pause
+@REM         exit /b 1
+@REM     )
+@REM     echo Virtual environment created.
+@REM )
 
-echo Activating virtual environment...
-call zundamon_env\Scripts\activate
-if %errorlevel% neq 0 (
-    echo Failed to activate virtual environment.
-    pause
-    exit /b 1
-)
+@REM echo Activating virtual environment...
+@REM call zundamon_env\Scripts\activate
+@REM if %errorlevel% neq 0 (
+@REM     echo Failed to activate virtual environment.
+@REM     pause
+@REM     exit /b 1
+@REM )
 
 REM Python version check
 echo Checking Python version...
