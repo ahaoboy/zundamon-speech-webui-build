@@ -63,6 +63,9 @@ jobs:
 
           cat ~/pip/pip.ini
 
+          echo "$PWD\python_cpu" | Out-File -Append -Encoding utf8 $env:GITHUB_PATH
+          echo "$PWD\python_cpu\Scripts" | Out-File -Append -Encoding utf8 $env:GITHUB_PATH
+
 
       - name: build pyopenjtalk
         run: |
@@ -138,12 +141,16 @@ jobs:
 
           cat ~/pip/pip.ini
 
+          echo "$PWD\python_gpu" | Out-File -Append -Encoding utf8 $env:GITHUB_PATH
+          echo "$PWD\python_gpu\Scripts" | Out-File -Append -Encoding utf8 $env:GITHUB_PATH
+
+
       - name: Install CUDA
         uses: Jimver/cuda-toolkit@master
         with:
           cuda: '12.1.0'
 
-      - name: build nltk
+      - name: install nltk
         run: |
           pip install nltk
           python -c "import nltk; nltk.download('averaged_perceptron_tagger'); nltk.download('averaged_perceptron_tagger_eng')"
