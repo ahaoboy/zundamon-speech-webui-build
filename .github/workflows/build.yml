@@ -50,7 +50,7 @@ jobs:
           Invoke-WebRequest -Uri "https://bootstrap.pypa.io/get-pip.py" -OutFile "get-pip.py"
           .\python\python.exe get-pip.py
           $pthFile = Get-ChildItem -Path "python" -Filter "python*._pth" | Select-Object -First 1
-          $content = Get-Content -Path "portable_python\$($pthFile.Name)"
+          $content = Get-Content -Path "python\$($pthFile.Name)"
           $content = $content -replace "#import site", "import site"
           $content += "Lib\site-packages"
           Set-Content -Path "python\$($pthFile.Name)" -Value $content
