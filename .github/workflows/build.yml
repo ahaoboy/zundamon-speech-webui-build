@@ -33,28 +33,12 @@ jobs:
         with:
           url: https://github.com/Kitware/CMake/releases/download/v4.0.0/cmake-4.0.0-windows-x86_64.zip
 
-      # - name: Download Python 3.9.13
-      #   run: |
-      #     Invoke-WebRequest -Uri "https://www.python.org/ftp/python/3.9.13/python-3.9.13-amd64.exe" -OutFile "python_installer.exe"
-      #     Start-Process -FilePath ".\python_installer.exe" -ArgumentList "/quiet InstallAllUsers=0 TargetDir=$PWD\python" -NoNewWindow -Wait
-      #     echo "$PWD\python" | Out-File -Append -Encoding utf8 $env:GITHUB_PATH
-      #     echo "$PWD\python\Scripts" | Out-File -Append -Encoding utf8 $env:GITHUB_PATH
-
-
-      - name: Download Python Embeddable  3.9.13
+      - name: Download Python 3.9.13
         run: |
-          $PYTHON_VERSION = "3.9.13"
-          $URL = "https://www.python.org/ftp/python/$PYTHON_VERSION/python-$PYTHON_VERSION-embed-amd64.zip"
-          Invoke-WebRequest -Uri $URL -OutFile "python-embed.zip"
-          Expand-Archive -Path "python-embed.zip" -DestinationPath "python_cpu"
-          Invoke-WebRequest -Uri "https://bootstrap.pypa.io/get-pip.py" -OutFile "get-pip.py"
-          ./python_cpu/python.exe get-pip.py
-          $pthFile = Get-ChildItem -Path "python_cpu" -Filter "python*._pth" | Select-Object -First 1
-          $content = Get-Content -Path "python_cpu\$($pthFile.Name)"
-          $content = $content -replace "#import site", "import site"
-          $content += "Lib\site-packages"
-          # $content += "."
-          Set-Content -Path "python_cpu\$($pthFile.Name)" -Value $content
+          Invoke-WebRequest -Uri "https://www.python.org/ftp/python/3.9.13/python-3.9.13-amd64.exe" -OutFile "python_installer.exe"
+          Start-Process -FilePath ".\python_installer.exe" -ArgumentList "/quiet InstallAllUsers=0 TargetDir=$PWD\python_cpu" -NoNewWindow -Wait
+          echo "$PWD\python_cpu" | Out-File -Append -Encoding utf8 $env:GITHUB_PATH
+          echo "$PWD\python_cpu\Scripts" | Out-File -Append -Encoding utf8 $env:GITHUB_PATH
 
           mkdir -p ~/pip
           echo "[global]" >> ~/pip/pip.ini
@@ -63,27 +47,31 @@ jobs:
 
           cat ~/pip/pip.ini
 
-          echo "$PWD\python_cpu" | Out-File -Append -Encoding utf8 $env:GITHUB_PATH
-          echo "$PWD\python_cpu\Scripts" | Out-File -Append -Encoding utf8 $env:GITHUB_PATH
 
-
-      - name: install pyopenjtalk
-        run: |
-          pip install git+https://github.com/r9y9/pyopenjtalk.git@fix-cmake4
-          pip install aliyun-python-sdk-dyvmsapi
-          pip install aliyun-python-sdk-core-v3==2.13.10
-          pip install aliyun-python-sdk-core
-          # pip install --config-settings="--build-option=build_ext" --config-settings="--build-option=--plat-name=win-amd64" jieba_fast
-
-
-
-      - name: install zundamonspeech_builder_cpu_v1
-        run: |
-          ./bat-en/zundamonspeech_builder_cpu_v1.0.bat
-
-      # - name: build nltk
+      # - name: Download Python Embeddable  3.9.13
       #   run: |
-      #     pip install nltk
+      #     $PYTHON_VERSION = "3.9.13"
+      #     $URL = "https://www.python.org/ftp/python/$PYTHON_VERSION/python-$PYTHON_VERSION-embed-amd64.zip"
+      #     Invoke-WebRequest -Uri $URL -OutFile "python-embed.zip"
+      #     Expand-Archive -Path "python-embed.zip" -DestinationPath "python_cpu"
+      #     Invoke-WebRequest -Uri "https://bootstrap.pypa.io/get-pip.py" -OutFile "get-pip.py"
+      #     ./python_cpu/python.exe get-pip.py
+      #     $pthFile = Get-ChildItem -Path "python_cpu" -Filter "python*._pth" | Select-Object -First 1
+      #     $content = Get-Content -Path "python_cpu\$($pthFile.Name)"
+      #     $content = $content -replace "#import site", "import site"
+      #     $content += "Lib\site-packages"
+      #     # $content += "."
+      #     Set-Content -Path "python_cpu\$($pthFile.Name)" -Value $content
+
+      #     mkdir -p ~/pip
+      #     echo "[global]" >> ~/pip/pip.ini
+      #     echo "no-cache-dir = true" >> ~/pip/pip.ini
+      #     echo "target = ${PWD}/python_cpu/Lib/site-packages/" >> ~/pip/pip.ini
+
+      #     cat ~/pip/pip.ini
+
+      #     echo "$PWD\python_cpu" | Out-File -Append -Encoding utf8 $env:GITHUB_PATH
+      #     echo "$PWD\python_cpu\Scripts" | Out-File -Append -Encoding utf8 $env:GITHUB_PATH
 
       - name: version
         run: |
@@ -91,6 +79,23 @@ jobs:
           which python
 
           python --version
+      - name: install zundamonspeech_builder_cpu_v1
+        run: |
+          ./bat-en/zundamonspeech_builder_cpu_v1.0.bat
+
+      - name: install pyopenjtalk
+        run: |
+          pip install git+https://github.com/r9y9/pyopenjtalk.git@fix-cmake4
+          # pip install aliyun-python-sdk-dyvmsapi
+          # pip install aliyun-python-sdk-core-v3==2.13.10
+          # pip install aliyun-python-sdk-core
+          # # pip install --config-settings="--build-option=build_ext" --config-settings="--build-option=--plat-name=win-amd64" jieba_fast
+
+
+      # - name: build nltk
+      #   run: |
+      #     pip install nltk
+
 
       - name: zip
         run: |
