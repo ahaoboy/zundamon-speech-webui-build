@@ -70,7 +70,10 @@ jobs:
       - name: install pyopenjtalk
         run: |
           pip install git+https://github.com/r9y9/pyopenjtalk.git@fix-cmake4
+          pip install aliyun-python-sdk-dyvmsapi
+          pip install aliyun-python-sdk-core-v3==2.13.10
           pip install aliyun-python-sdk-core
+
 
       - name: install zundamonspeech_builder_cpu_v1
         run: |
@@ -176,7 +179,10 @@ jobs:
       - name: install pyopenjtalk
         run: |
           pip install git+https://github.com/r9y9/pyopenjtalk.git@fix-cmake4
+          pip install aliyun-python-sdk-dyvmsapi
+          pip install aliyun-python-sdk-core-v3==2.13.10
           pip install aliyun-python-sdk-core
+
 
       - name: install zundamonspeech_builder_gpu_v1
         run: |
