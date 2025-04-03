@@ -346,15 +346,15 @@ if %errorlevel% neq 0 (
     exit /b 1
 )
 
-REM Download NLTK resources
-echo Downloading NLTK resources...
-python -c "import nltk; nltk.download('averaged_perceptron_tagger'); nltk.download('averaged_perceptron_tagger_eng')"
-if %errorlevel% neq 0 (
-    echo Failed to download NLTK resources.
-    cd ..
-    pause
-    exit /b 1
-)
+@REM REM Download NLTK resources
+@REM echo Downloading NLTK resources...
+@REM python -c "import nltk; nltk.download('averaged_perceptron_tagger'); nltk.download('averaged_perceptron_tagger_eng')"
+@REM if %errorlevel% neq 0 (
+@REM     echo Failed to download NLTK resources.
+@REM     cd ..
+@REM     pause
+@REM     exit /b 1
+@REM )
 
 REM Create launch batch file
 echo Creating launch batch file...

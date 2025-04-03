@@ -146,6 +146,14 @@ jobs:
       - name: build nltk
         run: |
           pip install nltk
+          python -c "import nltk; nltk.download('averaged_perceptron_tagger'); nltk.download('averaged_perceptron_tagger_eng')"
+
+      - name: version
+        run: |
+          which pip
+          which python
+
+          python --version
 
       - name: build
         run: |
