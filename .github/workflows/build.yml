@@ -73,7 +73,7 @@ jobs:
           pip install aliyun-python-sdk-dyvmsapi
           pip install aliyun-python-sdk-core-v3==2.13.10
           pip install aliyun-python-sdk-core
-          pip install --config-settings="--build-option=build_ext" --config-settings="--build-option=--plat-name=win-amd64" jieba_fast
+          # pip install --config-settings="--build-option=build_ext" --config-settings="--build-option=--plat-name=win-amd64" jieba_fast
 
 
 
@@ -184,7 +184,7 @@ jobs:
           pip install aliyun-python-sdk-dyvmsapi
           pip install aliyun-python-sdk-core-v3==2.13.10
           pip install aliyun-python-sdk-core
-          pip install --config-settings="--build-option=build_ext" --config-settings="--build-option=--plat-name=win-amd64" jieba_fast
+          # pip install --config-settings="--build-option=build_ext" --config-settings="--build-option=--plat-name=win-amd64" jieba_fast
 
 
 
