@@ -362,7 +362,7 @@ cd ..
 echo @echo off > launch_zundamon.bat
 echo chcp 65001 ^> NUL >> launch_zundamon.bat
 echo cd /d %%~dp0 >> launch_zundamon.bat
-echo call zundamon_env\Scripts\activate >> launch_zundamon.bat
+@REM echo call zundamon_env\Scripts\activate >> launch_zundamon.bat
 echo cd zundamon-speech-webui >> launch_zundamon.bat
 echo ./python/python zundamon_speech_run.py >> launch_zundamon.bat
 echo pause >> launch_zundamon.bat
