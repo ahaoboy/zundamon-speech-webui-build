@@ -24,7 +24,7 @@ transformers
 chardet
 PyYAML
 psutil
-jieba_fast
+# jieba_fast
 jieba
 LangSegment>=0.2.0
 Faster_Whisper
