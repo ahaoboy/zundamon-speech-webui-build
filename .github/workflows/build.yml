@@ -46,20 +46,20 @@ jobs:
           $PYTHON_VERSION = "3.9.13"
           $URL = "https://www.python.org/ftp/python/$PYTHON_VERSION/python-$PYTHON_VERSION-embed-amd64.zip"
           Invoke-WebRequest -Uri $URL -OutFile "python-embed.zip"
-          Expand-Archive -Path "python-embed.zip" -DestinationPath "python"
+          Expand-Archive -Path "python-embed.zip" -DestinationPath "python_cpu"
           Invoke-WebRequest -Uri "https://bootstrap.pypa.io/get-pip.py" -OutFile "get-pip.py"
-          .\python\python.exe get-pip.py
-          $pthFile = Get-ChildItem -Path "python" -Filter "python*._pth" | Select-Object -First 1
-          $content = Get-Content -Path "python\$($pthFile.Name)"
+          ./python_cpu/python.exe get-pip.py
+          $pthFile = Get-ChildItem -Path "python_cpu" -Filter "python*._pth" | Select-Object -First 1
+          $content = Get-Content -Path "python_cpu\$($pthFile.Name)"
           $content = $content -replace "#import site", "import site"
           $content += "Lib\site-packages"
           # $content += "."
-          Set-Content -Path "python\$($pthFile.Name)" -Value $content
+          Set-Content -Path "python_cpu\$($pthFile.Name)" -Value $content
 
           mkdir -p ~/pip
           echo "[global]" >> ~/pip/pip.ini
           echo "no-cache-dir = true" >> ~/pip/pip.ini
-          echo "target = ${PWD}/python/Lib/site-packages" >> ~/pip/pip.ini
+          echo "target = ${PWD}/python_cpu/Lib/site-packages/" >> ~/pip/pip.ini
 
 
       - name: build pyopenjtalk
@@ -67,11 +67,15 @@ jobs:
           pip install git+https://github.com/r9y9/pyopenjtalk.git@fix-cmake4
           ./bat-en/zundamonspeech_builder_cpu_v1.0.bat
 
+      # - name: build nltk
+      #   run: |
+      #     pip install nltk
+
       - name: zip
         run: |
           mkdir dist
-          7z a -tzip ./dist/zundamonspeech_builder_cpu.zip python zundamon-speech-webui launch_zundamon.bat -v2000m
-          7z a -tzip ./dist/python_cpu.zip python
+          7z a -tzip ./dist/zundamonspeech_builder_cpu.zip python_cpu zundamon-speech-webui -v2000m
+          7z a -tzip ./dist/python_cpu.zip python_cpu
           ls dist
 
       - name: release
@@ -115,26 +119,30 @@ jobs:
           $PYTHON_VERSION = "3.9.13"
           $URL = "https://www.python.org/ftp/python/$PYTHON_VERSION/python-$PYTHON_VERSION-embed-amd64.zip"
           Invoke-WebRequest -Uri $URL -OutFile "python-embed.zip"
-          Expand-Archive -Path "python-embed.zip" -DestinationPath "python"
+          Expand-Archive -Path "python-embed.zip" -DestinationPath "python_gpu"
           Invoke-WebRequest -Uri "https://bootstrap.pypa.io/get-pip.py" -OutFile "get-pip.py"
-          .\python\python.exe get-pip.py
-          $pthFile = Get-ChildItem -Path "python" -Filter "python*._pth" | Select-Object -First 1
-          $content = Get-Content -Path "python\$($pthFile.Name)"
+          ./python_gpu/python.exe get-pip.py
+          $pthFile = Get-ChildItem -Path "python_gpu" -Filter "python*._pth" | Select-Object -First 1
+          $content = Get-Content -Path "python_gpu\$($pthFile.Name)"
           $content = $content -replace "#import site", "import site"
           $content += "Lib\site-packages"
           # $content += "."
-          Set-Content -Path "python\$($pthFile.Name)" -Value $content
+          Set-Content -Path "python_gpu\$($pthFile.Name)" -Value $content
 
           mkdir -p ~/pip
           echo "[global]" >> ~/pip/pip.ini
           echo "no-cache-dir = true" >> ~/pip/pip.ini
-          echo "target = ${PWD}/python/Lib/site-packages" >> ~/pip/pip.ini
+          echo "target = ${PWD}/python_gpu/Lib/site-packages/" >> ~/pip/pip.ini
 
 
       - name: Install CUDA
         uses: Jimver/cuda-toolkit@master
         with:
           cuda: '12.1.0'
+
+      - name: build nltk
+        run: |
+          pip install nltk
 
       - name: build
         run: |
@@ -144,8 +152,8 @@ jobs:
       - name: zip
         run: |
           mkdir dist
-          7z a -tzip ./dist/zundamonspeech_builder_gpu.zip python zundamon-speech-webui launch_zundamon.bat -v2000m
-          7z a -tzip ./dist/python_gpu.zip python
+          7z a -tzip ./dist/zundamonspeech_builder_gpu.zip python_gpu zundamon-speech-webui -v2000m
+          7z a -tzip ./dist/python_gpu.zip python_gpu
 
           ls dist
 
