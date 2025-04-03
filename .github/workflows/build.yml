@@ -67,14 +67,25 @@ jobs:
           echo "$PWD\python_cpu\Scripts" | Out-File -Append -Encoding utf8 $env:GITHUB_PATH
 
 
-      - name: build pyopenjtalk
+      - name: install pyopenjtalk
         run: |
           pip install git+https://github.com/r9y9/pyopenjtalk.git@fix-cmake4
+          pip install aliyun-python-sdk-core
+
+      - name: install zundamonspeech_builder_cpu_v1
+        run: |
           ./bat-en/zundamonspeech_builder_cpu_v1.0.bat
 
       # - name: build nltk
       #   run: |
       #     pip install nltk
+
+      - name: version
+        run: |
+          which pip
+          which python
+
+          python --version
 
       - name: zip
         run: |
@@ -128,11 +139,11 @@ jobs:
           Invoke-WebRequest -Uri "https://bootstrap.pypa.io/get-pip.py" -OutFile "get-pip.py"
           ./python_gpu/python.exe get-pip.py
           $pthFile = Get-ChildItem -Path "python_gpu" -Filter "python*._pth" | Select-Object -First 1
-          $content = Get-Content -Path "python_gpu\$($pthFile.Name)"
+          $content = Get-Content -Path "python_gpu/$($pthFile.Name)"
           $content = $content -replace "#import site", "import site"
           $content += "Lib\site-packages"
           # $content += "."
-          Set-Content -Path "python_gpu\$($pthFile.Name)" -Value $content
+          Set-Content -Path "python_gpu/$($pthFile.Name)" -Value $content
 
           mkdir -p ~/pip
           echo "[global]" >> ~/pip/pip.ini
@@ -162,9 +173,13 @@ jobs:
 
           python --version
 
-      - name: build
+      - name: install pyopenjtalk
         run: |
           pip install git+https://github.com/r9y9/pyopenjtalk.git@fix-cmake4
+          pip install aliyun-python-sdk-core
+
+      - name: install zundamonspeech_builder_gpu_v1
+        run: |
           ./bat-en/zundamonspeech_builder_gpu_v1.0.bat
 
       - name: zip
