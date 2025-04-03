@@ -56,6 +56,11 @@ jobs:
           # $content += "."
           Set-Content -Path "python\$($pthFile.Name)" -Value $content
 
+          mkdir -p ~/pip
+          echo "[global]" > ~/pip/pip.ini
+          echo "no-cache-dir = true" > ~/pip/pip.ini
+          echo "target = ${PWD}/python/Lib/site-packages" > ~/pip/pip.ini
+
       - name: build pyopenjtalk
         run: |
           pip install git+https://github.com/r9y9/pyopenjtalk.git@fix-cmake4
@@ -118,6 +123,12 @@ jobs:
           $content += "Lib\site-packages"
           # $content += "."
           Set-Content -Path "python\$($pthFile.Name)" -Value $content
+
+          mkdir -p ~/pip
+          echo "[global]" > ~/pip/pip.ini
+          echo "no-cache-dir = true" > ~/pip/pip.ini
+          echo "target = ${PWD}/python/Lib/site-packages" > ~/pip/pip.ini
+
 
       - name: Install CUDA
         uses: Jimver/cuda-toolkit@master
