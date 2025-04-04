@@ -93,7 +93,7 @@ if [ -d "GPT-SoVITS/GPT_weights_v2" ] && [ -d "GPT-SoVITS/SoVITS_weights_v2" ]; 
 else
     echo "Downloading Zundamon fine-tuned model..."
     echo "This process may take some time. Progress will be displayed."
-    git clone --progress https://huggingface.co/zunzunpj/zundamon_GPT-SoVITS\
+    git clone --progress https://huggingface.co/zunzunpj/zundamon_GPT-SoVITS
 
     ls -lh zundamon_GPT-SoVITS
 
@@ -116,27 +116,31 @@ else
     rm -rf zundamon_GPT-SoVITS
 fi
 
+echo Downloading FFmpeg...
+curl -L -# https://huggingface.co/lj1995/VoiceConversionWebUI/resolve/main/ffmpeg.exe -o GPT-SoVITSffmpeg.exe
+curl -L -# https://huggingface.co/lj1995/VoiceConversionWebUI/resolve/main/ffprobe.exe -o GPT-SoVITS/ffprobe.exe
+
 # Check if FFmpeg and FFprobe exist
-echo "Checking if FFmpeg and FFprobe exist..."
-if [ -f "GPT-SoVITS/ffmpeg" ] && [ -f "GPT-SoVITS/ffprobe" ]; then
-    echo "FFmpeg and FFprobe already downloaded and placed. Skipping process."
-else
-    echo "Downloading FFmpeg..."
-    echo "Download progress will be shown with a progress bar."
-    curl -L -# https://johnvansickle.com/ffmpeg/builds/ffmpeg-git-amd64-static.tar.xz -o ffmpeg.tar.xz
-    if [ $? -ne 0 ]; then
-        echo "Failed to download FFmpeg."
-        cd ..
-        exit 1
-    fi
-    echo "Extracting FFmpeg..."
-    tar -xf ffmpeg.tar.xz
-    mv ffmpeg-git-*-amd64-static/ffmpeg GPT-SoVITS/
-    mv ffmpeg-git-*-amd64-static/ffprobe GPT-SoVITS/
-    rm -rf ffmpeg-git-*-amd64-static
-    rm ffmpeg.tar.xz
-    chmod +x GPT-SoVITS/ffmpeg GPT-SoVITS/ffprobe
-fi
+# echo "Checking if FFmpeg and FFprobe exist..."
+# if [ -f "GPT-SoVITS/ffmpeg" ] && [ -f "GPT-SoVITS/ffprobe" ]; then
+#     echo "FFmpeg and FFprobe already downloaded and placed. Skipping process."
+# else
+#     echo "Downloading FFmpeg..."
+#     echo "Download progress will be shown with a progress bar."
+#     curl -L -# https://johnvansickle.com/ffmpeg/builds/ffmpeg-git-amd64-static.tar.xz -o ffmpeg.tar.xz
+#     if [ $? -ne 0 ]; then
+#         echo "Failed to download FFmpeg."
+#         cd ..
+#         exit 1
+#     fi
+#     echo "Extracting FFmpeg..."
+#     tar -xf ffmpeg.tar.xz
+#     mv ffmpeg-git-*-amd64-static/ffmpeg GPT-SoVITS/
+#     mv ffmpeg-git-*-amd64-static/ffprobe GPT-SoVITS/
+#     rm -rf ffmpeg-git-*-amd64-static
+#     rm ffmpeg.tar.xz
+#     chmod +x GPT-SoVITS/ffmpeg GPT-SoVITS/ffprobe
+# fi
 
 echo
 echo "===== Setup completed! ====="
