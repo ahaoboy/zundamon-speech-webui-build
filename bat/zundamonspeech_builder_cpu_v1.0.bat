@@ -329,17 +329,17 @@ if %errorlevel% neq 0 (
     exit /b 1
 )
 
-REM Download NLTK resources
-echo Downloading NLTK resources...
-echo NLTKリソースをダウンロードしています...
-python -c "import nltk; nltk.download('averaged_perceptron_tagger'); nltk.download('averaged_perceptron_tagger_eng')"
-if %errorlevel% neq 0 (
-    echo Failed to download NLTK resources.
-    echo NLTKリソースのダウンロードに失敗しました。
-    cd ..
-    pause
-    exit /b 1
-)
+@REM REM Download NLTK resources
+@REM echo Downloading NLTK resources...
+@REM echo NLTKリソースをダウンロードしています...
+@REM python -c "import nltk; nltk.download('averaged_perceptron_tagger'); nltk.download('averaged_perceptron_tagger_eng')"
+@REM if %errorlevel% neq 0 (
+@REM     echo Failed to download NLTK resources.
+@REM     echo NLTKリソースのダウンロードに失敗しました。
+@REM     cd ..
+@REM     pause
+@REM     exit /b 1
+@REM )
 
 @REM REM Create launch batch file
 @REM echo Creating launch batch file...
