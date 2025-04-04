@@ -90,6 +90,10 @@ jobs:
       # pip install aliyun-python-sdk-core-v3==2.13.10
       # # pip install --config-settings="--build-option=build_ext" --config-settings="--build-option=--plat-name=win-amd64" jieba_fast
 
+      - name: install nltk
+        run: |
+          pip install nltk
+
       - name: install zundamonspeech_builder_cpu_v1
         run: |
           ./bat/zundamonspeech_builder_cpu_v1.0.bat
