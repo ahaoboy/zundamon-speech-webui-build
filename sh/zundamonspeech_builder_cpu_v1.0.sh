@@ -51,13 +51,50 @@ fi
 popd
 
 # Download and place G2PW model
+# echo "Checking if G2PW model exists..."
+# if [ -d "GPT-SoVITS/GPT_SoVITS/text/G2PWModel" ]; then
+#     echo "G2PW model already downloaded and placed. Skipping process."
+# else
+#     echo "Downloading G2PW model..."
+#     echo "This download may take some time. You can check the progress with the progress bar."
+#     curl -L -# https://paddlespeech.bj.bcebos.com/Parakeet/released_models/g2p/G2PWModel_1.1.zip -o G2PWModel.zip
+#     if [ $? -ne 0 ]; then
+#         echo "Failed to download G2PW model."
+#         cd ..
+#         exit 1
+#     fi
+#     echo "Extracting G2PW model..."
+#     unzip -o G2PWModel.zip -d temp_g2pw
+#     if [ $? -ne 0 ]; then
+#         echo "Failed to extract G2PW model."
+#         rm G2PWModel.zip
+#         cd ..
+#         exit 1
+#     fi
+#     echo "Checking extracted folder name..."
+#     if [ -d "temp_g2pw/g2pw" ]; then
+#         echo "Renaming extracted folder to 'G2PWModel'..."
+#         mv temp_g2pw/g2pw temp_g2pw/G2PWModel
+#     fi
+#     if [ -d "temp_g2pw/G2PWModel_1.1" ]; then
+#         echo "Renaming extracted folder to 'G2PWModel'..."
+#         mv temp_g2pw/G2PWModel_1.1 temp_g2pw/G2PWModel
+#     fi
+#     echo "Placing G2PW model..."
+#     mv temp_g2pw/G2PWModel GPT-SoVITS/GPT_SoVITS/text/
+#     rm -rf temp_g2pw
+#     rm G2PWModel.zip
+# fi
+
+
+# HACK: https://github.com/ahaoboy/zundamon-speech-webui-build/releases/download/v0.1.0/text.zip
 echo "Checking if G2PW model exists..."
 if [ -d "GPT-SoVITS/GPT_SoVITS/text/G2PWModel" ]; then
     echo "G2PW model already downloaded and placed. Skipping process."
 else
     echo "Downloading G2PW model..."
     echo "This download may take some time. You can check the progress with the progress bar."
-    curl -L -# https://paddlespeech.bj.bcebos.com/Parakeet/released_models/g2p/G2PWModel_1.1.zip -o G2PWModel.zip
+    curl -L -# https://github.com/ahaoboy/zundamon-speech-webui-build/releases/download/v0.1.0/text.zip -o G2PWModel.zip
     if [ $? -ne 0 ]; then
         echo "Failed to download G2PW model."
         cd ..
@@ -65,23 +102,7 @@ else
     fi
     echo "Extracting G2PW model..."
     unzip -o G2PWModel.zip -d temp_g2pw
-    if [ $? -ne 0 ]; then
-        echo "Failed to extract G2PW model."
-        rm G2PWModel.zip
-        cd ..
-        exit 1
-    fi
-    echo "Checking extracted folder name..."
-    if [ -d "temp_g2pw/g2pw" ]; then
-        echo "Renaming extracted folder to 'G2PWModel'..."
-        mv temp_g2pw/g2pw temp_g2pw/G2PWModel
-    fi
-    if [ -d "temp_g2pw/G2PWModel_1.1" ]; then
-        echo "Renaming extracted folder to 'G2PWModel'..."
-        mv temp_g2pw/G2PWModel_1.1 temp_g2pw/G2PWModel
-    fi
-    echo "Placing G2PW model..."
-    mv temp_g2pw/G2PWModel GPT-SoVITS/GPT_SoVITS/text/
+    mv temp_g2pw GPT-SoVITS/GPT_SoVITS/text
     rm -rf temp_g2pw
     rm G2PWModel.zip
 fi
