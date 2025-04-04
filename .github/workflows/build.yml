@@ -116,9 +116,9 @@ jobs:
 
           ./bat/zundamonspeech_builder_cpu_v1.0.bat
 
-      # - name: patch LangSegment
-      #   run: |
-      #     Copy-Item -Path LangSegment.patch.py -Destination ./python_cpu/Lib/site-packages/LangSegment/__init__.py -Force
+      - name: patch LangSegment
+        run: |
+          Copy-Item -Path LangSegment.patch.py -Destination ./python_cpu/Lib/site-packages/LangSegment/__init__.py -Force
 
       - name: zip
         run: |
