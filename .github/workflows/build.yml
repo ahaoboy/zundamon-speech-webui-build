@@ -92,7 +92,7 @@ jobs:
 
       - name: install torch
         run: |
-          pip install torch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install torch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2 --index-url https://download.pytorch.org/whl/cpu
 
       - name: install nltk
         run: |
@@ -114,16 +114,16 @@ jobs:
         run: |
           ./bat/zundamonspeech_builder_cpu_v1.0.bat
 
-      - name: patch LangSegment
-        run: |
-          Copy-Item -Path LangSegment.patch.py -Destination ./python_cpu/Lib/site-packages/LangSegment/__init__.py -Force
+      # - name: patch LangSegment
+      #   run: |
+      #     Copy-Item -Path LangSegment.patch.py -Destination ./python_cpu/Lib/site-packages/LangSegment/__init__.py -Force
 
       - name: zip
         run: |
           ls python_cpu/Scripts
           Get-ChildItem -Path "./python_cpu/scripts" -Filter "pip*.exe" | Remove-Item -Force
 
-          pip show torch
+          python -m pip show torch
 
           mkdir dist
           7z a -tzip ./dist/zundamonspeech_builder_cpu.zip python_cpu zundamon-speech-webui run_cpu.bat -v2000m
