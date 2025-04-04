@@ -116,7 +116,7 @@ jobs:
 
       - name: patch LangSegment
         run: |
-          Copy-Item -Path LangSegment.patch.py -Destination./python_cpu/Lib/site-packages/LangSegment/__init__.py -Force
+          Copy-Item -Path LangSegment.patch.py -Destination ./python_cpu/Lib/site-packages/LangSegment/__init__.py -Force
 
       - name: zip
         run: |
