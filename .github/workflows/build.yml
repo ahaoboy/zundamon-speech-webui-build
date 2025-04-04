@@ -99,6 +99,9 @@ jobs:
       - name: zip
         run: |
           ls python_cpu/Scripts
+          Get-ChildItem -Path "./python_cpu/scripts" -Filter "pip*.exe" | Remove-Item -Force
+
+          pip show torch
 
           mkdir dist
           7z a -tzip ./dist/zundamonspeech_builder_cpu.zip python_cpu zundamon-speech-webui -v2000m
