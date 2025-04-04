@@ -118,17 +118,17 @@ if exist zundamon-speech-webui (
 
 cd zundamon-speech-webui
 
-REM Install PyTorch (CPU version)
-echo Installing PyTorch (CPU version)...
-echo PyTorch (CPU版) をインストールしています...
-pip install torch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2 --index-url https://download.pytorch.org/whl/cpu
-if %errorlevel% neq 0 (
-    echo Failed to install PyTorch.
-    echo PyTorchのインストールに失敗しました。
-    cd ..
-    pause
-    exit /b 1
-)
+@REM REM Install PyTorch (CPU version)
+@REM echo Installing PyTorch (CPU version)...
+@REM echo PyTorch (CPU版) をインストールしています...
+@REM pip install torch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2 --index-url https://download.pytorch.org/whl/cpu
+@REM if %errorlevel% neq 0 (
+@REM     echo Failed to install PyTorch.
+@REM     echo PyTorchのインストールに失敗しました。
+@REM     cd ..
+@REM     pause
+@REM     exit /b 1
+@REM )
 
 @REM REM Install dependencies
 @REM echo Installing dependencies...

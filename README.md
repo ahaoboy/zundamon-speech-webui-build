@@ -13,7 +13,7 @@ zundamonspeech_builder_cpu.zip.004
 
 ### unzip
 ```
-python_cpu
+python_cpu/
 zundamon-speech-webui/
 run_cpu.bat
 ```
