@@ -117,7 +117,7 @@ else
 fi
 
 echo Downloading FFmpeg...
-curl -L -# https://huggingface.co/lj1995/VoiceConversionWebUI/resolve/main/ffmpeg.exe -o GPT-SoVITSffmpeg.exe
+curl -L -# https://huggingface.co/lj1995/VoiceConversionWebUI/resolve/main/ffmpeg.exe -o GPT-SoVITS/ffmpeg.exe
 curl -L -# https://huggingface.co/lj1995/VoiceConversionWebUI/resolve/main/ffprobe.exe -o GPT-SoVITS/ffprobe.exe
 
 # Check if FFmpeg and FFprobe exist
