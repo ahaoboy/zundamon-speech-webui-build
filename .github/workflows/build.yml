@@ -46,7 +46,6 @@ jobs:
           # echo "target = ${PWD}/python_cpu/Lib/site-packages/" >> ~/pip/pip.ini
           # cat ~/pip/pip.ini
 
-
       # - name: Download Python Embeddable  3.9.13
       #   run: |
       #     $PYTHON_VERSION = "3.9.13"
@@ -78,27 +77,27 @@ jobs:
           which python
 
           python --version
+
+      # - name: install pyopenjtalk
+      #   run: |
+      #     pip install git+https://github.com/r9y9/pyopenjtalk.git@fix-cmake4
+
+      # pip install aliyun-python-sdk-dyvmsapi
+      # pip install aliyun-python-sdk-core
+
+      # pip install aliyun-python-sdk-core-v3==2.13.10
+      # # pip install --config-settings="--build-option=build_ext" --config-settings="--build-option=--plat-name=win-amd64" jieba_fast
+
       - name: install zundamonspeech_builder_cpu_v1
         run: |
           ./bat-en/zundamonspeech_builder_cpu_v1.0.bat
-
-      - name: install pyopenjtalk
-        run: |
-          pip install git+https://github.com/r9y9/pyopenjtalk.git@fix-cmake4
-          # pip install aliyun-python-sdk-dyvmsapi
-          # pip install aliyun-python-sdk-core-v3==2.13.10
-          # pip install aliyun-python-sdk-core
-          # # pip install --config-settings="--build-option=build_ext" --config-settings="--build-option=--plat-name=win-amd64" jieba_fast
-
 
       # - name: build nltk
       #   run: |
       #     pip install nltk
 
-
       - name: zip
         run: |
-          ls dist
           ls python_cpu/Scripts
 
           mkdir dist
@@ -168,11 +167,10 @@ jobs:
           echo "$PWD\python_gpu" | Out-File -Append -Encoding utf8 $env:GITHUB_PATH
           echo "$PWD\python_gpu\Scripts" | Out-File -Append -Encoding utf8 $env:GITHUB_PATH
 
-
       - name: Install CUDA
         uses: Jimver/cuda-toolkit@master
         with:
-          cuda: '12.1.0'
+          cuda: "12.1.0"
 
       - name: install nltk
         run: |
@@ -193,9 +191,6 @@ jobs:
           pip install aliyun-python-sdk-core-v3==2.13.10
           pip install aliyun-python-sdk-core
           # pip install --config-settings="--build-option=build_ext" --config-settings="--build-option=--plat-name=win-amd64" jieba_fast
-
-
-
 
       - name: install zundamonspeech_builder_gpu_v1
         run: |

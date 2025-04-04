@@ -13,6 +13,7 @@ funasr==1.0.27
 cn2an
 pypinyin
 # pyopenjtalk>=0.3.4
+git+https://github.com/r9y9/pyopenjtalk.git@fix-cmake4
 g2p_en
 # torch==2.1.2+cu121
 # torchaudio==2.1.2+cu121
