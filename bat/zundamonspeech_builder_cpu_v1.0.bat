@@ -6,30 +6,30 @@ cd /d %~dp0
 
 cd ..
 
-@ echo off
-echo Python3.9.13、Git、Visual Studio Build Tools、CMakeのインストールはできましたか？
-echo Have you installed Python3.9.13, Git, Visual Studio Build Tools, and CMake?
-echo 準備ができたら何かキーを押してください
-echo Press any key when you are ready to continue
-pause > NUL
+@REM @ echo off
+@REM echo Python3.9.13、Git、Visual Studio Build Tools、CMakeのインストールはできましたか？
+@REM echo Have you installed Python3.9.13, Git, Visual Studio Build Tools, and CMake?
+@REM echo 準備ができたら何かキーを押してください
+@REM echo Press any key when you are ready to continue
+@REM pause > NUL
 
-REM Create virtual environment
-echo Creating virtual environment...
-echo 仮想環境を作成しています...
-if exist zundamon_env (
-    echo Virtual environment already exists.
-    echo 仮想環境は既に存在します。
-) else (
-    python -m venv zundamon_env
-    if %errorlevel% neq 0 (
-        echo Failed to create virtual environment. Please check if Python 3.9.13 is installed.
-        echo 仮想環境の作成に失敗しました。Python 3.9.13がインストールされているか確認してください。
-        pause
-        exit /b 1
-    )
-    echo Virtual environment created.
-    echo 仮想環境を作成しました。
-)
+@REM REM Create virtual environment
+@REM echo Creating virtual environment...
+@REM echo 仮想環境を作成しています...
+@REM if exist zundamon_env (
+@REM     echo Virtual environment already exists.
+@REM     echo 仮想環境は既に存在します。
+@REM ) else (
+@REM     python -m venv zundamon_env
+@REM     if %errorlevel% neq 0 (
+@REM         echo Failed to create virtual environment. Please check if Python 3.9.13 is installed.
+@REM         echo 仮想環境の作成に失敗しました。Python 3.9.13がインストールされているか確認してください。
+@REM         pause
+@REM         exit /b 1
+@REM     )
+@REM     echo Virtual environment created.
+@REM     echo 仮想環境を作成しました。
+@REM )
 
 echo Activating virtual environment...
 echo 仮想環境を有効化しています...
@@ -41,59 +41,59 @@ if %errorlevel% neq 0 (
     exit /b 1
 )
 
-echo Pythonバージョンを確認しています...
-echo Checking Python version...
+@REM echo Pythonバージョンを確認しています...
+@REM echo Checking Python version...
 
-:: 1. Pythonコマンドが存在するかチェック
-where python >nul 2>&1
-if %errorlevel% neq 0 (
-    echo Pythonが見つかりません。Python 3.9.13をインストールしてください。
-    echo.
-    echo 何かキーを押して終了してください...
-    pause > NUL
-    exit /b
-)
+@REM :: 1. Pythonコマンドが存在するかチェック
+@REM where python >nul 2>&1
+@REM if %errorlevel% neq 0 (
+@REM     echo Pythonが見つかりません。Python 3.9.13をインストールしてください。
+@REM     echo.
+@REM     echo 何かキーを押して終了してください...
+@REM     pause > NUL
+@REM     exit /b
+@REM )
 
-:: 2. Pythonバージョンをチェック
-python -c "import sys; version='3.9.13'; current='.'.join(map(str, sys.version_info[:3])); print(f'Current Python version: {current}'); sys.exit(0 if current == version else 1)"
-if %errorlevel% neq 0 (
-    echo.
-    echo 警告: Python 3.9.13が推奨されていますが、異なるバージョンが検出されました。
-    echo Warning: Python 3.9.13 is recommended, but a different version was detected.
-    echo.
-    echo 異なるバージョンで続行すると予期しない問題が発生する可能性があります。
-    echo Continuing with a different version may cause unexpected issues.
+@REM :: 2. Pythonバージョンをチェック
+@REM python -c "import sys; version='3.9.13'; current='.'.join(map(str, sys.version_info[:3])); print(f'Current Python version: {current}'); sys.exit(0 if current == version else 1)"
+@REM if %errorlevel% neq 0 (
+@REM     echo.
+@REM     echo 警告: Python 3.9.13が推奨されていますが、異なるバージョンが検出されました。
+@REM     echo Warning: Python 3.9.13 is recommended, but a different version was detected.
+@REM     echo.
+@REM     echo 異なるバージョンで続行すると予期しない問題が発生する可能性があります。
+@REM     echo Continuing with a different version may cause unexpected issues.
 
-    goto ASK_CONTINUE  :: 続行確認のループへ移動
-)
+@REM     goto ASK_CONTINUE  :: 続行確認のループへ移動
+@REM )
 
-:: バージョンが正常の場合は処理を継続
-echo Pythonバージョンチェックが完了しました。
-echo Python version check passed.
-goto END
+@REM :: バージョンが正常の場合は処理を継続
+@REM echo Pythonバージョンチェックが完了しました。
+@REM echo Python version check passed.
+@REM goto END
 
-:: -----------------------------------
-:: 続行確認のループ
-:ASK_CONTINUE
-set /p CONTINUE="現在のPythonバージョンで続行しますか？ (Y/N): "
+@REM :: -----------------------------------
+@REM :: 続行確認のループ
+@REM :ASK_CONTINUE
+@REM set /p CONTINUE="現在のPythonバージョンで続行しますか？ (Y/N): "
 
-if /i "%CONTINUE%" == "N" (
-    echo.
-    echo セットアップがキャンセルされました。Python 3.9.13をインストールしてください。
-    echo Setup has been cancelled. Please install Python 3.9.13.
-    echo.
-    echo 何かキーを押して終了してください...
-    pause > NUL
-    exit /b
-) else if /i "%CONTINUE%" == "Y" (
-    echo 現在のPythonバージョンで続行します...
-    echo Continuing with current Python version...
-) else (
-    echo 無効な入力です。YまたはNを入力してください。
-    echo Invalid input. Please enter Y or N.
-    echo.
-    goto ASK_CONTINUE  :: 無効な入力時は再度質問
-)
+@REM if /i "%CONTINUE%" == "N" (
+@REM     echo.
+@REM     echo セットアップがキャンセルされました。Python 3.9.13をインストールしてください。
+@REM     echo Setup has been cancelled. Please install Python 3.9.13.
+@REM     echo.
+@REM     echo 何かキーを押して終了してください...
+@REM     pause > NUL
+@REM     exit /b
+@REM ) else if /i "%CONTINUE%" == "Y" (
+@REM     echo 現在のPythonバージョンで続行します...
+@REM     echo Continuing with current Python version...
+@REM ) else (
+@REM     echo 無効な入力です。YまたはNを入力してください。
+@REM     echo Invalid input. Please enter Y or N.
+@REM     echo.
+@REM     goto ASK_CONTINUE  :: 無効な入力時は再度質問
+@REM )
 
 :: -----------------------------------
 :: 最終処理
