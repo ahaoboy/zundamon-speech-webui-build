@@ -112,6 +112,8 @@ jobs:
 
       - name: install zundamonspeech_builder_cpu_v1
         run: |
+          python -m pip install -r requirements.txt
+
           ./bat/zundamonspeech_builder_cpu_v1.0.bat
 
       # - name: patch LangSegment
