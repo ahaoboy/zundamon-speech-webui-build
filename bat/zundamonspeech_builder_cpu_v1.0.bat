@@ -31,15 +31,15 @@ cd ..
 @REM     echo 仮想環境を作成しました。
 @REM )
 
-echo Activating virtual environment...
-echo 仮想環境を有効化しています...
-call zundamon_env\Scripts\activate
-if %errorlevel% neq 0 (
-    echo Failed to activate virtual environment.
-    echo 仮想環境の有効化に失敗しました。
-    pause
-    exit /b 1
-)
+@REM echo Activating virtual environment...
+@REM echo 仮想環境を有効化しています...
+@REM call zundamon_env\Scripts\activate
+@REM if %errorlevel% neq 0 (
+@REM     echo Failed to activate virtual environment.
+@REM     echo 仮想環境の有効化に失敗しました。
+@REM     pause
+@REM     exit /b 1
+@REM )
 
 @REM echo Pythonバージョンを確認しています...
 @REM echo Checking Python version...
