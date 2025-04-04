@@ -110,10 +110,12 @@ jobs:
 
           ls ./python_cpu/nltk_data
 
-      - name: install zundamonspeech_builder_cpu_v1
+      - name: install requirements
         run: |
           python -m pip install -r requirements.txt
 
+      - name: install zundamonspeech_builder_cpu_v1
+        run: |
           # ./bat/zundamonspeech_builder_cpu_v1.0.bat
           bash ./sh/zundamonspeech_builder_cpu_v1.0.sh
 

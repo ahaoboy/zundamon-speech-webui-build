@@ -144,3 +144,5 @@ curl -L -# https://huggingface.co/lj1995/VoiceConversionWebUI/resolve/main/ffpro
 
 echo
 echo "===== Setup completed! ====="
+
+ls -lh
