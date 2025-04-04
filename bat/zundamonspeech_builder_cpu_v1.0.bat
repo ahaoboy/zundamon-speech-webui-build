@@ -130,17 +130,17 @@ if %errorlevel% neq 0 (
     exit /b 1
 )
 
-REM Install dependencies
-echo Installing dependencies...
-echo 依存関係をインストールしています...
-pip install -r ../requirements.txt
-if %errorlevel% neq 0 (
-    echo Failed to install dependencies.
-    echo 依存関係のインストールに失敗しました。
-    cd ..
-    pause
-    exit /b 1
-)
+@REM REM Install dependencies
+@REM echo Installing dependencies...
+@REM echo 依存関係をインストールしています...
+@REM pip install -r ../requirements.txt
+@REM if %errorlevel% neq 0 (
+@REM     echo Failed to install dependencies.
+@REM     echo 依存関係のインストールに失敗しました。
+@REM     cd ..
+@REM     pause
+@REM     exit /b 1
+@REM )
 
 echo Installing Git LFS...
 echo Git LFSをインストールしています...
@@ -341,17 +341,17 @@ if %errorlevel% neq 0 (
     exit /b 1
 )
 
-REM Create launch batch file
-echo Creating launch batch file...
-echo 起動用バッチファイルを作成しています...
-cd ..
-echo @echo off > launch_zundamon.bat
-echo chcp 65001 ^> NUL >> launch_zundamon.bat
-echo cd /d %%~dp0 >> launch_zundamon.bat
-echo call zundamon_env\Scripts\activate >> launch_zundamon.bat
-echo cd zundamon-speech-webui >> launch_zundamon.bat
-echo python zundamon_speech_run.py >> launch_zundamon.bat
-echo pause >> launch_zundamon.bat
+@REM REM Create launch batch file
+@REM echo Creating launch batch file...
+@REM echo 起動用バッチファイルを作成しています...
+@REM cd ..
+@REM echo @echo off > launch_zundamon.bat
+@REM echo chcp 65001 ^> NUL >> launch_zundamon.bat
+@REM echo cd /d %%~dp0 >> launch_zundamon.bat
+@REM echo call zundamon_env\Scripts\activate >> launch_zundamon.bat
+@REM echo cd zundamon-speech-webui >> launch_zundamon.bat
+@REM echo python zundamon_speech_run.py >> launch_zundamon.bat
+@REM echo pause >> launch_zundamon.bat
 
 echo.
 echo ===== Setup completed! =====

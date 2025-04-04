@@ -40,6 +40,8 @@ jobs:
           echo "$PWD\python_cpu" | Out-File -Append -Encoding utf8 $env:GITHUB_PATH
           echo "$PWD\python_cpu\Scripts" | Out-File -Append -Encoding utf8 $env:GITHUB_PATH
 
+          Invoke-WebRequest -Uri "https://bootstrap.pypa.io/get-pip.py" -OutFile "./python_cpu/get-pip.py"
+
           # mkdir -p ~/pip
           # echo "[global]" >> ~/pip/pip.ini
           # echo "no-cache-dir = true" >> ~/pip/pip.ini
@@ -90,11 +92,25 @@ jobs:
 
       - name: install zundamonspeech_builder_cpu_v1
         run: |
-          ./bat-en/zundamonspeech_builder_cpu_v1.0.bat
+          ./bat/zundamonspeech_builder_cpu_v1.0.bat
 
       # - name: build nltk
       #   run: |
       #     pip install nltk
+
+      - name: copy nltk_data
+        run: |
+          $username = $env:USERNAME
+          $source = "C:\Users\$username\AppData\Roaming\nltk_data"
+          $destination = "./python_cpu"
+
+          Copy-Item -Path $source -Destination "$destination\nltk_data" -Recurse -Force
+
+          ls ./python_cpu/nltk_data
+
+      - name: patch LangSegment
+        run: |
+          Copy-Item -Path LangSegment.patch.py -Destination./python_cpu/Lib/site-packages/LangSegment/__init__.py -Force
 
       - name: zip
         run: |
@@ -198,6 +214,16 @@ jobs:
       - name: install zundamonspeech_builder_gpu_v1
         run: |
           ./bat-en/zundamonspeech_builder_gpu_v1.0.bat
+
+      # - name: copy nltk_data
+      #   run: |
+      #     $username = $env:USERNAME
+      #     $source = "C:\Users\$username\AppData\Roaming\nltk_data"
+      #     $destination = "./python_cpu"
+
+      #     Copy-Item -Path $source -Destination "$destination\nltk_data" -Recurse -Force
+
+      #     ls ./python_cpu/nltk_data
 
       - name: zip
         run: |
