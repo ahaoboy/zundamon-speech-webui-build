@@ -7,7 +7,7 @@ if [ -d "zundamon-speech-webui" ]; then
 else
     echo "Cloning repository..."
     echo "This process may take some time. Progress will be displayed."
-    git clone --progress --recursive https://github.com/zunzun999/zundamon-speech-webui.git
+    git clone   --recursive https://github.com/zunzun999/zundamon-speech-webui.git
 fi
 
 cd zundamon-speech-webui
@@ -29,7 +29,7 @@ if [ -d "gsv-v2final-pretrained" ]; then
 else
     echo "Downloading pre-trained models..."
     echo "This is a large file and may take time to download. Progress will be displayed."
-    git clone --progress https://huggingface.co/lj1995/GPT-SoVITS
+    git clone   https://huggingface.co/lj1995/GPT-SoVITS
     if [ $? -ne 0 ]; then
         echo "Failed to download pre-trained models."
         popd
@@ -114,7 +114,7 @@ if [ -d "GPT-SoVITS/GPT_weights_v2" ] && [ -d "GPT-SoVITS/SoVITS_weights_v2" ]; 
 else
     echo "Downloading Zundamon fine-tuned model..."
     echo "This process may take some time. Progress will be displayed."
-    git clone --progress https://huggingface.co/zunzunpj/zundamon_GPT-SoVITS
+    git clone   https://huggingface.co/zunzunpj/zundamon_GPT-SoVITS
 
     ls -lh zundamon_GPT-SoVITS
 
@@ -124,17 +124,19 @@ else
         exit 1
     fi
     echo "Placing Zundamon fine-tuned model..."
-    if [ -d "GPT-SoVITS/GPT_weights_v2" ]; then
-        ls -lh GPT-SoVITS/GPT_weights_v2
-        rm -rf GPT-SoVITS/GPT_weights_v2
-    fi
-    if [ -d "GPT-SoVITS/SoVITS_weights_v2" ]; then
-        ls -lh GPT-SoVITS/SoVITS_weights_v2
-        rm -rf GPT-SoVITS/SoVITS_weights_v2
-    fi
-    mv zundamon_GPT-SoVITS/GPT_weights_v2 GPT-SoVITS/
-    mv zundamon_GPT-SoVITS/SoVITS_weights_v2 GPT-SoVITS/
+    # if [ -d "GPT-SoVITS/GPT_weights_v2" ]; then
+    #     ls -lh GPT-SoVITS/GPT_weights_v2
+    #     rm -rf GPT-SoVITS/GPT_weights_v2
+    # fi
+    # if [ -d "GPT-SoVITS/SoVITS_weights_v2" ]; then
+    #     ls -lh GPT-SoVITS/SoVITS_weights_v2
+    #     rm -rf GPT-SoVITS/SoVITS_weights_v2
+    # fi
+    mv zundamon_GPT-SoVITS/SoVITS_weights_v2/ GPT-SoVITS/SoVITS_weights_v2/
+    mv zundamon_GPT-SoVITS/GPT_weights_v2/ GPT-SoVITS/
+
     rm -rf zundamon_GPT-SoVITS
+    ls -lh GPT-SoVITS
 fi
 
 echo Downloading FFmpeg...
