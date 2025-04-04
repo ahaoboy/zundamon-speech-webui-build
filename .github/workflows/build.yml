@@ -40,12 +40,11 @@ jobs:
           echo "$PWD\python_cpu" | Out-File -Append -Encoding utf8 $env:GITHUB_PATH
           echo "$PWD\python_cpu\Scripts" | Out-File -Append -Encoding utf8 $env:GITHUB_PATH
 
-          mkdir -p ~/pip
-          echo "[global]" >> ~/pip/pip.ini
-          echo "no-cache-dir = true" >> ~/pip/pip.ini
-          echo "target = ${PWD}/python_cpu/Lib/site-packages/" >> ~/pip/pip.ini
-
-          cat ~/pip/pip.ini
+          # mkdir -p ~/pip
+          # echo "[global]" >> ~/pip/pip.ini
+          # echo "no-cache-dir = true" >> ~/pip/pip.ini
+          # echo "target = ${PWD}/python_cpu/Lib/site-packages/" >> ~/pip/pip.ini
+          # cat ~/pip/pip.ini
 
 
       # - name: Download Python Embeddable  3.9.13
@@ -115,6 +114,7 @@ jobs:
           allowUpdates: true
 
   build-windows-gpu:
+    if: false
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
