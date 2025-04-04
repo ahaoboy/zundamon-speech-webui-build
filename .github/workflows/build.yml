@@ -104,7 +104,7 @@ jobs:
           pip show torch
 
           mkdir dist
-          7z a -tzip ./dist/zundamonspeech_builder_cpu.zip python_cpu zundamon-speech-webui -v2000m
+          7z a -tzip ./dist/zundamonspeech_builder_cpu.zip python_cpu zundamon-speech-webui run.cpu.bat -v2000m
           7z a -tzip ./dist/python_cpu.zip python_cpu
           ls dist
 
