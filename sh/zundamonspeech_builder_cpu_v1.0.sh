@@ -124,16 +124,16 @@ else
         exit 1
     fi
     echo "Placing Zundamon fine-tuned model..."
-    # if [ -d "GPT-SoVITS/GPT_weights_v2" ]; then
-    #     ls -lh GPT-SoVITS/GPT_weights_v2
-    #     rm -rf GPT-SoVITS/GPT_weights_v2
-    # fi
-    # if [ -d "GPT-SoVITS/SoVITS_weights_v2" ]; then
-    #     ls -lh GPT-SoVITS/SoVITS_weights_v2
-    #     rm -rf GPT-SoVITS/SoVITS_weights_v2
-    # fi
+    if [ -d "GPT-SoVITS/GPT_weights_v2" ]; then
+        ls -lh GPT-SoVITS/GPT_weights_v2
+        rm -rf GPT-SoVITS/GPT_weights_v2
+    fi
+    if [ -d "GPT-SoVITS/SoVITS_weights_v2" ]; then
+        ls -lh GPT-SoVITS/SoVITS_weights_v2
+        rm -rf GPT-SoVITS/SoVITS_weights_v2
+    fi
     mv zundamon_GPT-SoVITS/SoVITS_weights_v2/ GPT-SoVITS/SoVITS_weights_v2/
-    mv zundamon_GPT-SoVITS/GPT_weights_v2/ GPT-SoVITS/
+    mv zundamon_GPT-SoVITS/GPT_weights_v2/ GPT-SoVITS/GPT_weights_v2/
 
     rm -rf zundamon_GPT-SoVITS
     ls -lh GPT-SoVITS
