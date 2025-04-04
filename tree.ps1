@@ -1,6 +1,7 @@
+$basePath = (Get-Location).Path
 Get-ChildItem -Recurse | Where-Object { !$_.PSIsContainer } | Select-Object @{
     Name = "FullName";
-    Expression = { $_.FullName }
+    Expression = { $_.FullName.Replace($basePath, "").TrimStart('\') }
 }, @{
     Name = "Size";
     Expression = {

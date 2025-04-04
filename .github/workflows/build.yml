@@ -130,6 +130,8 @@ jobs:
 
           python -m pip show torch
 
+          Get-ChildItem -Path . -Directory -Recurse -Name "__pycache__" | ForEach-Object { Remove-Item -Path $_ -Recurse -Force }
+
           mkdir dist
           7z a -tzip ./dist/zundamonspeech_builder_cpu.zip python_cpu zundamon-speech-webui run_cpu.bat -v2000m
           7z a -tzip ./dist/python_cpu.zip python_cpu
