@@ -103,7 +103,8 @@ else
     echo "Extracting G2PW model..."
     unzip -o G2PWModel.zip -d temp_g2pw
     mkdir -p GPT-SoVITS/GPT_SoVITS/text
-    mv -rf temp_g2pw/* GPT-SoVITS/GPT_SoVITS/text/*
+    # mv -rf temp_g2pw/* GPT-SoVITS/GPT_SoVITS/text/*
+    mv -rf temp_g2pw GPT_SoVITS/GPT_SoVITS/text
     rm -rf temp_g2pw
     rm G2PWModel.zip
 fi
